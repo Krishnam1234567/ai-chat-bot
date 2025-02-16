@@ -1,0 +1,43 @@
+name: foo
+description: An AI Assistant chat bot inspired by chat GPT.
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.5.3
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # Encourage good practices
+  flutter_lints: ^4.0.0
+
+  # For changing app icon
+  flutter_launcher_icons: ^0.14.3
+
+
+ 
+  http: ^0.13.5
+  provider: ^6.0.5
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/bot.png"
+
+  flutter:
+  assets:
+     assets/images/bot.png
+
+   
+
+
+
+
+
+ 
