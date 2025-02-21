@@ -1,118 +1,64 @@
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:provider/provider.dart';
+Overview
 
-void main() {
-  runApp(const MyApp());
-}
+This is a simple AI chatbot built using Kotlin and JavaScript. It does not require an API key and operates entirely offline using a pre-trained model or rule-based responses.
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+Features
 
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ChatProvider(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: ChatScreen(),
-      ),
-    );
-  }
-}
+No API key required
 
-class ChatScreen extends StatelessWidget {
-  final TextEditingController _controller = TextEditingController();
+Works offline
 
-  ChatScreen({super.key});
+Customizable responses
 
-  @override
-  Widget build(BuildContext context) {
-    final chatProvider = Provider.of<ChatProvider>(context);
+Lightweight and easy to use
 
-    return Scaffold(
-      appBar: AppBar(title: const Text("Flutter Chatbot")),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: chatProvider.messages.length,
-              itemBuilder: (context, index) {
-                final message = chatProvider.messages[index];
-                return ListTile(
-                  title: Text(message['text']!,
-                      style: TextStyle(
-                          color: message['isUser']!
-                              ? Colors.blue
-                              : Colors.black)),
-                  subtitle: message['isUser']!
-                      ? const Text("You")
-                      : const Text("Bot"),
-                );
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _controller,
-                    decoration: const InputDecoration(
-                        hintText: "Type a prompt..."),
-                  ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.send),
-                  onPressed: () {
-                    if (_controller.text.isNotEmpty) {
-                      chatProvider.sendMessage(_controller.text);
-                      _controller.clear();
-                    }
-                  },
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+Requirements
 
-class ChatProvider extends ChangeNotifier {
-  List<Map<String, dynamic>> messages = [];
-  final String apiKey = "AIzaSyC6ah8UmAWHmf-H0BUTxvERT5v5hEgbLz0"; // Replace with your key
+Kotlin 1.x
 
-  Future<void> sendMessage(String userMessage) async {
-    messages.add({'text': userMessage, 'isUser': true});
-    notifyListeners();
+Node.js and npm
 
-    final response = await http.post(
-      Uri.parse("https://api.openai.com/v1/chat/completions"),
-      headers: {
-        "Authorization": "Bearer $apiKey",
-        "Content-Type": "application/json"
-      },
-      body: jsonEncode({
-        "model": "gpt-4",
-        "messages": [
-          {"role": "system", "content": "You are a helpful assistant."},
-          {"role": "user", "content": userMessage}
-        ]
-      }),
-    );
+Installation
 
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      final botReply = data['choices'][0]['message']['content'];
-      messages.add({'text': botReply, 'isUser': false});
-      notifyListeners();
-    } else {
-      messages.add({'text': "Error: ${response.reasonPhrase}", 'isUser': false});
-      notifyListeners();
-    }
-  }
-}
+Kotlin Setup
+
+Clone the repository:
+
+git clone https://github.com/your-repo/ai-chatbot.git
+cd ai-chatbot
+
+Install Kotlin dependencies:
+
+./gradlew build
+
+JavaScript Setup
+
+Navigate to the frontend folder:
+
+cd frontend
+
+Install dependencies:
+
+npm install
+
+Run the chatbot:
+
+npm start
+
+Usage
+
+Run the Kotlin backend and JavaScript frontend.
+
+Interact with the chatbot through the web interface.
+
+Modify responses.kt or responses.js to customize chatbot replies.
+
+Customization
+
+You can enhance the chatbot by:
+
+Adding more predefined responses.
+
+Implementing simple NLP techniques like keyword matching.
+
+Integrating with a local model for improved conversations.
