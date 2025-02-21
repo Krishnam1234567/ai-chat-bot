@@ -24,7 +24,7 @@ Kotlin Setup
 
 Clone the repository:
 
-git clone https://github.com/your-repo/ai-chatbot.git
+git clone https://github.com/Krishnam1234567/ai-chat-bot.git
 cd ai-chatbot
 
 Install Kotlin dependencies:
